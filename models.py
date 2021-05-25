@@ -19,21 +19,29 @@ def get_time():
 # db.define_table('thing', Field('name'))
 #
 ## always commit your models to avoid problems later
-
 db.define_table(
-    'contact',
-    Field('first_name', requires=IS_NOT_EMPTY()),
-    Field('last_name', requires=IS_NOT_EMPTY()),
-    Field('user_email', default=get_user_email),
+    'cs_class',
+    Field('className', requires=IS_NOT_EMPTY()),
+    Field('classID', requires=IS_NOT_EMPTY()),
+
 )
 
-db.contact.user_email.writable = db.contact.user_email.readable = False
+db.cs_class.id.readable = db.cs_class.id.writeable = False
+
 
 db.define_table(
-    'phone',
-    Field('contact_id', 'reference contact'),
-    Field('phone_number', 'string', requires=IS_NOT_EMPTY()),
-    Field('phone_name', 'string', requires=IS_NOT_EMPTY()),
+    'student',
+    Field('class_id', 'reference cs_class'),
+    Field('student_name', requires=IS_NOT_EMPTY()),
+    Field('year', requires=IS_NOT_EMPTY()),
+    Field('student_email', requires=IS_NOT_EMPTY(), default=get_user_email())
 )
+
+
+db.student.class_id.readable = db.student.class_id.writeable = False
+db.student.id.readable = db.student.id.writeable = False
+
+
+
 
 db.commit()

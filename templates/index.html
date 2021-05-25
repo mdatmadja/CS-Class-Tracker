@@ -1,41 +1,81 @@
 [[extend 'layout.html']]
 
 <div class="section">
-    <h1 class="title">Your Address Book</h1>
-
-    <div class="container">
-        <table class="table is-striped is-fullwidth">
+   
+   <div class = "container">
+      <p class="title is-3">Class Tracker</p>
+      <table class="table is-striped is-fullwidth">
+         <tr>
+            <th>
+               Class Name
+            </th>
+            <th>
+               Class ID
+            </th>
+            <th>
+               Students
+            </th>
+            
+            <th>
+               Sign Up / Remove Class
+            </th>
+            
+            
+         </tr>
+         [[for row in rows:]]
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th></th>
-                <th>Phone Numbers</th>
-                <th></th>
-            </tr>
-            [[for row in rows:]]
-            <tr>
-                <td>[[=row["first_name"] ]]</td>
-                <td>[[=row["last_name"] ]]</td>
-                <td>
-                    <a class="button is-warning" href="[[=URL('edit_contact', row["id"], signer=url_signer)]]">
-                        <i class="fa fa-fw fa-edit"></i>
-                    </a>
+               <td>[[ =row['className'] ]]</td>
+               
+               <td>[[ =row['classID'] ]]</td>
 
-                    <a class="button is-danger" href="[[=URL('delete_contact', row["id"], signer=url_signer)]]">
-                        <i class="fa fa-fw fa-trash"></i>
-                    </a>
-                </td>
-                <td>[[=row["phone_numbers"] ]]</td>
-                <td>
-                    <a class="button is-warning" href="[[=URL('edit_phone', row["id"], signer=url_signer)]]">
-                        <i class="fa fa-fw fa-edit"></i>
-                    </a>
-                </td>
+           <td>
+               [[ =row['students'] ]]
+           </td>
+           <td>
+            <a class="button is-success" href="[[=URL('add_student', row['id'])]]">
+               <i class="fa fa-fw fa-plus"></i>
+           </a>
+           <a class="button is-danger" href="[[=URL('remove_student', row['id'])]]">
+            <i class="fa fa-fw fa-trash"></i>
+            </a>
+           </td>
+
+               
             </tr>
+         [[pass]]
+      </table>
+      <div class="container">
+         <p class="title is-5">Computer Science Degree Progress</p>
+         <progress class="progress is-large" value="[[ =percent ]]" max="100"></progress>
+         <p>Current Enrollment:</p>
+         <ul>
+            [[for course in classesTaken:]]
+               <li>[[ =course ]]</li>
+
             [[pass]]
-        </table>
-    </div>
+         </ul>
+      </div>
+      <br></br>
+      
+      <div class="container">
+         <p class="title is-5"> Personal Information</p>
+         <table class="table">
+            <tr>
+               <th>
+                  Name
+               </th>
+               <th>
+                  Year
+               </th>
+               <th>
+                  Email
+               </th>
+            </tr>
+            
+         </table>
+      </div>
 
-    <a class="button is-primary" href="[[=URL('add_contact')]]">Add Phone Number</a>
-
+     
+     
+   </div>
 </div>
